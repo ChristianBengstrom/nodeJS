@@ -1,0 +1,7 @@
+The most common background for noders is web based JavaScript.
+There's one thing that JavaScript cannot do in that context, and that is
+accessing the file system. That would have to be the user's private file
+system on her own computer, and of course we can't have that.
+Therefore one of the defining new things in node vis-a-vis that scenario,
+is precisely access to the file system. Here is a walk through of some of
+the central functions for doing that.
