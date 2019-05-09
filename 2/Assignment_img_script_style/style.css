@@ -1,0 +1,10 @@
+div {
+    margin: 1em;
+}
+form {
+    margin: 1em auto;
+    width: 64%;
+}
+label, legend {
+    font-weight: bold;
+}

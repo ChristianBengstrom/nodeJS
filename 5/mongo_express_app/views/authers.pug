@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  
+  br    
+  a(href='.') Go back
+  br
+  br
+  h3 Authers
+  if registrations.length
+    table.listing-table.table-dark.table-striped
+      tr
+        th Firstname
+        th Lastname
+      each registration in registrations
+        tr
+          td= registration.firstname
+          td= registration.lastname
+  else
+    p No registrations yet :(
+  
+  br    
+  a(href='./add-auther') Add Auther

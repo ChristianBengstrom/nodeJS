@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'/>
+        <title>First Real Page from the Node.js Server</title>
+        <!--
+        <style>
+            div {
+                margin: 1em;
+            }
+            form {
+                margin: 1em auto;
+                width: 64%;
+            }
+            label, legend {
+                font-weight: bold;
+            }
+        </style>
+         -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Node.js at Your Service</h1>
+        <img src='avatar.png' alt='img avatar'/>
+        <form action='/upload' method='post'>
+            <fieldset>
+                <legend>InputForm</legend>
+                <div>
+                    <label for='tar'>Enter Text Here</label>
+                    <br/>
+                    <textarea id='tar' name='nml' rows='16' cols='64' placeholder='Put your input here'></textarea>
+                    <br/><br/>
+                    <input type='submit' value='Submit'/>
+                </div>
+            </fieldset>
+        </form>
+    </body>
+</html>

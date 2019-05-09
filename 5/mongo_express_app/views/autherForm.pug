@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  -data = data || {}
+
+  if errors
+    ul.my-errors
+      for error in errors
+        li= error.msg
+        
+  br
+  h3.text-center Add Auther
+  
+  form(action="/add-auther" method="POST" class="form-registration")
+    label(for="firstname") Firstname:
+    input(
+      type="text"
+      id="firstname"
+      name="firstname"
+      class="form-control"
+      value=data.firstname
+    )
+
+    label(for="lastname") Lastname:
+    input(
+      type="text"
+      id="lastname"
+      name="lastname"
+      class="form-control"
+      value=data.lastname
+    )
+
+    input(
+      type="submit"
+      value="Submit"
+      class="btn btn-lg btn-primary btn-block"
+    )

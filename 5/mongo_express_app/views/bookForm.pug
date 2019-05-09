@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  -data = data || {}
+
+  if errors
+    ul.my-errors
+      for error in errors
+        li= error.msg
+
+  br
+  h3.text-center Add Book
+  
+  form(action="./add-book" method="POST" class="form-registration")
+    label(for="auther") Auther:
+    input(
+      type="text"
+      id="auther"
+      name="auther"
+      class="form-control"
+      value=data.auther
+    )
+
+    label(for="title") Title:
+    input(
+      type="text"
+      id="title"
+      name="title"
+      class="form-control"
+      value=data.title
+    )
+    
+    label(for="edition") Edition:
+    input(
+      type="text"
+      id="edition"
+      name="edition"
+      class="form-control"
+      value=data.edition
+    )
+    
+    label(for="publisher") Publisher:
+    input(
+      type="text"
+      id="publisher"
+      name="publisher"
+      class="form-control"
+      value=data.publisher
+    )
+    
+    label(for="year") Year:
+    input(
+      type="number"
+      min="1000"
+      max="2019"
+      id="year"
+      name="year"
+      class="form-control"
+      value=data.year
+    )
+
+    input(
+      type="submit"
+      value="Submit"
+      class="btn btn-lg btn-primary btn-block"
+    )
