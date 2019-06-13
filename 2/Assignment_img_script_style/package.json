@@ -1,0 +1,16 @@
+{
+  "name": "assignment_img_script_style",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "node-html-parser": "^1.1.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Christian Møller Bengstrøm <contact@christianbengstrom.dk> (https://christianbengstrom.dk)",
+  "license": "MIT"
+}

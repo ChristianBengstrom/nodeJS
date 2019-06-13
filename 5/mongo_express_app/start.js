@@ -3,23 +3,41 @@
 // user: jim pwd: password
 
 require('dotenv').config();                   // for using a .env file
+
+// Require the framework and instantiate it
+const fastify = require('fastify')({
+  logger: true
+})
+
 const mongoose = require('mongoose');         // toolkit for using mongoDB
 
-// mongoose setup connection
-mongoose.connect(process.env.DATABASE);
-mongoose.Promise = global.Promise;
-mongoose.connection
-  .on('connected', () => {
-    console.log(`Mongoose connection open on ${process.env.DATABASE}`);
-  })
-  .on('error', (err) => {
-    console.log(`Connection error: ${err.message}`);
-  });
+// Connect to DB
+mongoose.connect(process.env.DATABASE)
+ .then(() => console.log('MongoDB connected…'))
+ .catch(err => console.log(err))
 
-  require('./models/Registration');            // Schema for authers
-  require('./models/Book');                   // Schema for Books
-  const app = require('./app');
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen(3000)
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
 
-  const server = app.listen(3000, () => {
-    console.log(`Express is running on port ${server.address().port}`);
-  });
+require('./models/Registration');           // Schema for authers
+require('./models/Book');                   // Schema for Books
+
+// const app = require('./app');
+// const server = app.listen(3000, () => {
+//   console.log(`Express is running on port ${server.address().port}`);
+// });
+
+const routes = require('./routes')
+
+routes.forEach((route, index) => {
+ fastify.route(route)
+})

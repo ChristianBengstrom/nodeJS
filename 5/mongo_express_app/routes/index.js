@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { body, validationResult } = require('express-validator/check');    // for sanitization and validation of user input.
+const { body, validationResult } = require('express-validator/check');          // for sanitization and validation of user input.
 
 const router = express.Router();
 const Registration = mongoose.model('Registration');
 const Book = mongoose.model('Book');
+const bookController = require('../controllers/bookController')                 // Import our Controllers
 
 const path = require('path');
-const auth = require('http-auth');                          // for authentification
+const auth = require('http-auth');                                              // for authentification
 
 const basic = auth.basic({
   file: path.join(__dirname, '../users.htpasswd'),
@@ -20,18 +21,18 @@ const basic = auth.basic({
 
 // FRONT PAGE -> Show books
 
-router.get('/', auth.connect(basic), (req, res) => {          // auth requiered
-  Book.find()                                         // select * from Registration
+router.get('/', auth.connect(basic), (req, res) => {                              // auth requiered
+  Book.find()                                                                   // select * from Registration
     .then((books) => {
       res.render('index', { title: 'Listing registrations', books });
     })
     .catch(() => { res.send('Sorry! Something went wrong.'); });
 });
 
-// Show books
+// Show authers
 
-router.get('/authers', auth.connect(basic), (req, res) => {          // auth requiered
-  Registration.find()                                         // select * from Registration
+router.get('/authers', auth.connect(basic), (req, res) => {                     // auth requiered
+  Registration.find()                                                             // select * from Registration
     .then((registrations) => {
       res.render('authers', { title: 'Listing registrations', registrations });
     })
@@ -43,20 +44,17 @@ router.get('/authers', auth.connect(basic), (req, res) => {          // auth req
 router.get('/add-auther', auth.connect(basic), (req, res) => {
   res.render('autherForm', { title: 'Register auther' });
 });
-
 router.post('/add-auther',
   [
-     body('firstname')                                           // for express-validator/check
+     body('firstname')                                                            // for express-validator/check
        .isLength({ min: 1 })
        .withMessage('Please enter a firstname'),
      body('lastname')
        .isLength({ min: 1 })
        .withMessage('Please enter a lastname'),
    ],
-   (req, res) => {                                            // form post route
+   (req, res) => {                                                              // form post route
      const errors = validationResult(req);
-     // console.log(req.body);                                // log the post body (content)
-
      if (errors.isEmpty()) {
        const registration = new Registration(req.body);
        registration.save()
@@ -114,5 +112,36 @@ router.post('/add-book',
   }
 );
 
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-REST*API-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* //
 
-module.exports = router;
+const routes = [
+  {
+    method: 'GET',
+    url: '/api/books',
+    handler: bookController.getBooks
+  },
+  {
+    method: 'GET',
+    url: '/api/books/:id',
+    handler: bookController.getSingleBook
+  },
+  {
+    method: 'POST',
+    url: '/api/books',
+    handler: bookController.addBook,
+    // schema: documentation.bookSchema
+    // new Registration(req.body);
+  },
+  {
+    method: 'PUT',
+    url: '/api/books/:id',
+    handler: bookController.updateBook
+  },
+  {
+    method: 'DELETE',
+    url: '/api/books/:id',
+    handler: bookController.deleteBook
+  }
+]
+
+module.exports = routes;

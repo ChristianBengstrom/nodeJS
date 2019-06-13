@@ -5,6 +5,5 @@ fs.readFile(filename, (err, data) => {
     if (err) {
         throw err;
     }
-    console.log("Content:\n--------\n" + data + "\n Yeah - Read asynchronously!");
+    console.log("Asynchronously Content:\n" + data);
 });
-console.log("Asynchronously?");

@@ -1,0 +1,11 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/nodemon/bin/nodemon.js ./src/index.js"
+  },
+  "author": "Christian Møller Bengstrøm <contact@christianbengstrom.dk> (https://christianbengstrom.dk)",
+  "license": "MIT"
+}
